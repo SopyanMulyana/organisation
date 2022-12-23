@@ -1,5 +1,6 @@
 package com.mitrais.organisation.service;
 
+import com.mitrais.organisation.controller.request.UserRequest;
 import com.mitrais.organisation.repository.UserRepository;
 import com.mitrais.organisation.repository.entity.User;
 import org.junit.Test;
@@ -51,10 +52,12 @@ public class UserServiceTest {
 
     @Test
     public void testEdit() {
+        String id = "123";
+        UserRequest request = new UserRequest("new name", 23);
         User user = new User("123", "new name", 23);
-        doReturn(user).when(myRepository).save(user);
+        doReturn(user).when(myRepository).save(any(User.class));
 
-        User editedEntity = myService.update(user);
+        User editedEntity = myService.update(id, request);
         assertEquals("123", editedEntity.getId());
         assertEquals("new name", editedEntity.getName());
         verify(myRepository, times(1)).save(any(User.class));

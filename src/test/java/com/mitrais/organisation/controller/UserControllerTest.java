@@ -1,5 +1,6 @@
 package com.mitrais.organisation.controller;
 
+import com.mitrais.organisation.controller.request.UserRequest;
 import com.mitrais.organisation.repository.entity.User;
 import com.mitrais.organisation.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -63,7 +64,8 @@ public class UserControllerTest {
     public void testCreate() throws Exception {
         String payload = "{\"name\": \"John\", \"age\": 30}";
         User user = new User("123", "John", 30);
-        when(userService.create(user)).thenReturn(user);
+        UserRequest request = new UserRequest("John", 30);
+        when(userService.create(request)).thenReturn(user);
         mockMvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payload))

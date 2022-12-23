@@ -1,5 +1,6 @@
 package com.mitrais.organisation.controller;
 
+import com.mitrais.organisation.controller.request.UserRequest;
 import com.mitrais.organisation.repository.entity.User;
 import com.mitrais.organisation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,13 @@ public class UserController {
     }
 
     @PostMapping()
-    public User create(@RequestBody User user) {
+    public User create(@RequestBody UserRequest user) {
         return service.create(user);
     }
 
     @PutMapping("/{id}")
-    public User update(@PathVariable String id, @RequestBody User user) {
-        user.setId(id);
-        return service.update(user);
+    public User update(@PathVariable String id, @RequestBody UserRequest user) {
+        return service.update(id, user);
     }
 
     @DeleteMapping("/{id}")

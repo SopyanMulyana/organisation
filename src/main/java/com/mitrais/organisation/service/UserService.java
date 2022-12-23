@@ -1,5 +1,6 @@
 package com.mitrais.organisation.service;
 
+import com.mitrais.organisation.controller.request.UserRequest;
 import com.mitrais.organisation.repository.UserRepository;
 import com.mitrais.organisation.repository.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,15 @@ public class UserService {
         return repository.findById(id);
     }
 
-    public User create(User user) {
+    public User create(UserRequest request) {
+        User user = new User();
+        user.setName(request.getName());
+        user.setAge(request.getAge());
         return repository.insert(user);
     }
 
-    public User update(User user) {
+    public User update(String id, UserRequest request) {
+        User user = new User(id, request.getName(), request.getAge());
         return repository.save(user);
     }
 

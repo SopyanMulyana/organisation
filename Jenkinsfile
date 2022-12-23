@@ -8,15 +8,21 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Verify') {
             steps {
-                bat 'mvn spring-boot:build-image'
+                bat 'mvn verify -Dmaven.test.skip'
             }
         }
 
-        stage('Deploy') {
+        stage('Test') {
             steps {
-                bat 'docker run -p 9090:8080 -t organisation:0.0.1-SNAPSHOT'
+                bat 'mvn test'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                bat 'mvn compile jib:dockerBuild'
             }
         }
     }
