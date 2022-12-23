@@ -4,18 +4,18 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvnw clean package'
+                bat 'mvnw clean package'
             }
         }
         stage('Sonar Analysis') {
             steps {
-                sh 'mvnw sonar:sonar -Dsonar.login=squ_013d9f365c447270bc7ec8749a82e49cef9ba64f'
+                bat 'mvnw sonar:sonar -Dsonar.login=squ_013d9f365c447270bc7ec8749a82e49cef9ba64f'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'cp target/*.jar app.jar'
-                sh 'java -jar app.jar'
+                bat 'cp target/*.jar app.jar'
+                bat 'java -jar app.jar'
             }
         }
     }
