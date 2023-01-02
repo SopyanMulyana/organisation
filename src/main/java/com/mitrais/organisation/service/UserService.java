@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserService {
@@ -16,7 +18,8 @@ public class UserService {
     private UserRepository repository;
 
     public List<User> getAll() {
-        return repository.findAll();
+        return StreamSupport.stream(repository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     public Optional<User> getById(String id) {
@@ -27,7 +30,7 @@ public class UserService {
         User user = new User();
         user.setName(request.getName());
         user.setAge(request.getAge());
-        return repository.insert(user);
+        return repository.save(user);
     }
 
     public User update(String id, UserRequest request) {

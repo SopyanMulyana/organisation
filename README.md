@@ -1,4 +1,7 @@
-# organisation
-Example CRUD project using Spring Boot application.
+# Organisation
+Example CRUD project using **Spring Boot** application.
 # Tech stack:
-This app build using maven, java 17 and mongoDb
+- Maven
+- java 17
+- H2
+- SonarQube
